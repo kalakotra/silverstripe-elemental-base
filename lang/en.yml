@@ -1,0 +1,4 @@
+en:
+  ATW\ElementalBase\Models\BaseElement:
+    VARIANT: "Variant"
+    CHOOSE_VARIANT: "Choose variant"

@@ -10,6 +10,8 @@ class BaseElement extends ElementalBase
 {
     private static $description = 'Base element class';
 
+    private static $table_name = 'ElementBase';
+
     private static $db = [
         'Variant' => 'Varchar(255)'
     ];
