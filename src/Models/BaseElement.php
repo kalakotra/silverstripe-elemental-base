@@ -2,10 +2,13 @@
 
 namespace ATW\ElementalBase\Models;
 
+use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 use DNADesign\Elemental\Models\BaseElement as ElementalBase;
+use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\CheckboxSetField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextField;
 
 class BaseElement extends ElementalBase
 {
@@ -13,9 +16,13 @@ class BaseElement extends ElementalBase
 
     private static $table_name = 'ElementBase';
 
+    private static $use_submenu = false;
+
     private static $db = [
         'Variant' => 'Varchar(255)',
         'Options' => 'Varchar(255)',
+        'ShowInMenu' => 'Boolean',
+        'MenuTitle' => 'Varchar(255)'
     ];
 
     public function getCMSFields()
@@ -47,6 +54,23 @@ class BaseElement extends ElementalBase
                 $fields->removeByName('Options');
             }
 
+            $use_submenu = $this->config()->get('use_submenu');
+
+            if ($use_submenu) {
+                $fields->removeByName('ShowInMenu');
+                $fields->replaceField(
+                    'MenuTitle',
+                    TextCheckboxGroupField::create(
+                        TextField::create('MenuTitle', _t(__CLASS__ . '.db_MenuTitle', 'MenuTitle')),
+                        CheckboxField::create('ShowInMenu', _t(__CLASS__ . '.db_ShowInMenu', 'Show in submenu'))
+                    )
+                        ->setName('ShowInMenuTitle')
+                );
+            } else {
+                $fields->removeByName('ShowInMenu');
+                $fields->removeByName('MenuTitle');
+            }
+
         });
 
         return parent::getCMSFields();
@@ -62,4 +86,16 @@ class BaseElement extends ElementalBase
         }
         return implode(" ", $classes);
     }
+
+    public function getMenuTitle() {
+        if ($this->dbObject("MenuTitle"))
+            return $this->dbObject("MenuTitle");
+        return $this->Title;
+    }
+
+    public function getAnchorTitle() {
+        return $this->getMenuTitle();
+    }
+
+
 }

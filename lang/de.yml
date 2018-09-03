@@ -20,3 +20,5 @@ de:
   ATW\ElementalBase\Models\BaseElement:
     VARIANT: "Variante"
     CHOOSE_VARIANT: "Variante auswählen"
+    db_MenuTitle: "Menütitel"
+    db_ShowInMenu: "Im Menü anzeigen"
