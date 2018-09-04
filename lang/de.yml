@@ -22,3 +22,6 @@ de:
     CHOOSE_VARIANT: "Variante auswählen"
     db_MenuTitle: "Menütitel"
     db_ShowInMenu: "Im Menü anzeigen"
+  ATW\ElementalBase\Extensions\MenuPageExtension:
+    MENU: "Menü"
+    CHOOSE_MENU: "Menü auswählen"
