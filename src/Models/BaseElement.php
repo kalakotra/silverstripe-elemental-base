@@ -4,6 +4,7 @@ namespace ATW\ElementalBase\Models;
 
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 use DNADesign\Elemental\Models\BaseElement as ElementalBase;
+use SilverStripe\Core\Config\ConfigLoader;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\CheckboxSetField;
 use SilverStripe\Forms\DropdownField;
@@ -28,12 +29,12 @@ class BaseElement extends ElementalBase
     public function getCMSFields()
     {
         $this->beforeUpdateCMSFields(function (FieldList $fields) {
-            $variants = $this->config()->get('variants');
-            $variants_name = $this->config()->get('variants-name');
+            $config = $this->getPage()->config()->get($this->ClassName);
+            $variants = $config["variants"] ?? [];
+            $variants_name = $config["variants_name"] ?? _t(__CLASS__.'.VARIANT', 'Variants');
 
             if ($variants && count($variants) > 0) {
-                $variantDropdown = DropdownField::create('Variant',
-                    $variants_name?$variants_name:_t(__CLASS__.'.VARIANT', 'Variants'), $variants);
+                $variantDropdown = DropdownField::create('Variant', $variants_name, $variants);
 
                 $fields->addFieldToTab('Root.Main', $variantDropdown, "TitleAndDisplayed");
 
@@ -42,12 +43,11 @@ class BaseElement extends ElementalBase
                 $fields->removeByName('Variant');
             }
 
-            $options = $this->config()->get('options');
-            $options_name = $this->config()->get('options-name');
+            $options = $config["options"] ?? [];
+            $options_name = $config["options_name"] ?? _t(__CLASS__.'.VARIANT', 'Variants');
 
             if ($options && count($options) > 0) {
-                $optionsField = CheckboxSetField::create('Options',
-                    $options_name?$options_name:_t(__CLASS__.'.VARIANT', 'Variants'), $options);
+                $optionsField = CheckboxSetField::create('Options', $options_name, $options);
 
                 $fields->addFieldToTab('Root.Main', $optionsField, "TitleAndDisplayed");
             } else {
