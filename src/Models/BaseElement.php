@@ -87,6 +87,12 @@ class BaseElement extends ElementalBase
         return implode(" ", $classes);
     }
 
+    public function HasOption($option) {
+        if($options = $this->Options) {
+            return strstr($options, $option) !== false;
+        }
+    }
+
     public function getMenuTitle() {
         if ($this->dbObject("MenuTitle"))
             return $this->dbObject("MenuTitle");
