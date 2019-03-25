@@ -29,14 +29,16 @@ class BaseElement extends ElementalBase
     public function getCMSFields()
     {
         $this->beforeUpdateCMSFields(function (FieldList $fields) {
-            $config = $this->getPage()->config()->get($this->ClassName);
+            $page = $this->getPage();
+            if(!$page) return;
+            $config = $page->config()->get($this->ClassName);
             $variants = $config["variants"] ?? [];
             $variants_name = $config["variants_name"] ?? _t(__CLASS__.'.VARIANT', 'Variants');
 
             if ($variants && count($variants) > 0) {
                 $variantDropdown = DropdownField::create('Variant', $variants_name, $variants);
 
-                $fields->addFieldToTab('Root.Main', $variantDropdown, "TitleAndDisplayed");
+                $fields->addFieldToTab('Root.Main', $variantDropdown, "Title");
 
                 $variantDropdown->setEmptyString(_t(__CLASS__.'.CHOOSE_VARIANT', 'Choose variant'));
             } else {
@@ -49,7 +51,7 @@ class BaseElement extends ElementalBase
             if ($options && count($options) > 0) {
                 $optionsField = CheckboxSetField::create('Options', $options_name, $options);
 
-                $fields->addFieldToTab('Root.Main', $optionsField, "TitleAndDisplayed");
+                $fields->addFieldToTab('Root.Main', $optionsField, "Title");
             } else {
                 $fields->removeByName('Options');
             }
@@ -70,6 +72,9 @@ class BaseElement extends ElementalBase
                 $fields->removeByName('ShowInMenu');
                 $fields->removeByName('MenuTitle');
             }
+            // Hide the navigation section of the tabs in the React component {@see silverstripe/admin Tabs}
+            $rootTabset = $fields->fieldByName('Root');
+            $rootTabset->setSchemaState(['hideNav' => true]);
 
         });
 
