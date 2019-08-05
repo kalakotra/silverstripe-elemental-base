@@ -108,5 +108,15 @@ class BaseElement extends ElementalBase
         return $this->getMenuTitle();
     }
 
+    public function getEditorContent() {
+        return _t('ElementSummary.NO_PREVIEW', 'Keine Vorschau');
+    }
+
+    protected function provideBlockSchema() {
+        $schema = parent::provideBlockSchema();
+        $schema["content"] = $this->getEditorContent();
+        return $schema;
+    }
+
 
 }
