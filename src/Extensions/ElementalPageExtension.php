@@ -46,7 +46,7 @@ class ElementalPageExtension extends BaseExtension {
                 $availableClasses = $config->get('allowed_elements');
             }
         } else {
-            $availableClasses = ClassInfo::subclassesFor(BaseElement::class);
+            $availableClasses = ClassInfo::subclassesFor(DNABase::class);
         }
 
         $disallowedElements = (array) $config->get('disallowed_elements');
