@@ -6,10 +6,21 @@ use DNADesign\Elemental\Models\BaseElement as DNABase;
 use DNADesign\Elemental\Extensions\ElementalPageExtension as BaseExtension;
 use DNADesign\Elemental\Models\ElementalArea;
 use SilverStripe\Core\ClassInfo;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\View\ArrayData;
 
 class ElementalPageExtension extends BaseExtension {
+    private static $db = [
+        "SearchText" => "Text",
+    ];
+
+    public function updateCMSFields(FieldList $fields) {
+        $fields = parent::updateCMSFields($fields);
+        $fields->addFieldToTab("Root.Search", new TextareaField("SearchText"));
+        return $fields;
+    }
 
     public function getSubMenu() {
         $menu = new ArrayList();
@@ -101,6 +112,15 @@ class ElementalPageExtension extends BaseExtension {
             }
         }
         return $menu_items;
+    }
+
+    public function onBeforeWrite() {
+        parent::onBeforeWrite();
+
+        $searchText = $this->getElementsForSearch();
+        $searchText = preg_replace('/\s+/', ' ', $searchText);
+        $this->owner->SearchText = $searchText;
+
     }
 
 }

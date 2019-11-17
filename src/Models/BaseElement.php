@@ -23,7 +23,7 @@ class BaseElement extends ElementalBase
         'Variant' => 'Varchar(255)',
         'Options' => 'Varchar(255)',
         'ShowInMenu' => 'Boolean',
-        'MenuTitle' => 'Varchar(255)'
+        'MenuTitle' => 'Varchar(255)',
     ];
 
     public function getCMSFields()
@@ -116,6 +116,10 @@ class BaseElement extends ElementalBase
         $schema = parent::provideBlockSchema();
         $schema["content"] = $this->getEditorContent();
         return $schema;
+    }
+
+    public function onBeforeWrite() {
+        parent::onBeforeWrite();
     }
 
 
