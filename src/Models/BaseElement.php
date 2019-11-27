@@ -99,8 +99,8 @@ class BaseElement extends ElementalBase
     }
 
     public function getMenuTitle() {
-        if ($this->dbObject("MenuTitle"))
-            return $this->dbObject("MenuTitle");
+        if ($this->dbObject("MenuTitle")->getValue())
+            return $this->dbObject("MenuTitle")->getValue();
         return $this->Title;
     }
 
