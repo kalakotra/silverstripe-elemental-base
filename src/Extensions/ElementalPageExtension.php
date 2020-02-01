@@ -17,7 +17,6 @@ class ElementalPageExtension extends BaseExtension {
     ];
 
     public function updateCMSFields(FieldList $fields) {
-        $fields = parent::updateCMSFields($fields);
         $fields->addFieldToTab("Root.Search", new TextareaField("SearchText"));
         return $fields;
     }
