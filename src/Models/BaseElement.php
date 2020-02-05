@@ -26,6 +26,15 @@ class BaseElement extends ElementalBase
         'MenuTitle' => 'Varchar(255)',
     ];
 
+    //For adiwidjaja/silverstripe-headless
+    private static $headless_fields = [
+        'ShowTitle' => 'showTitle',
+        'Variant' => 'variant',
+        'Options' => 'options',
+        'ShowInMenu' => 'showInMenu',
+        'MenuTitle' => 'menuTitle'
+    ];
+
     public function getCMSFields()
     {
         $this->beforeUpdateCMSFields(function (FieldList $fields) {

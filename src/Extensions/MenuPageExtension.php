@@ -15,6 +15,10 @@ class MenuPageExtension extends BaseExtension {
         "Menu" => "main"
     ];
 
+    private static $headless_fields = [
+        "Menu" => "menu",
+    ];
+
     public function updateCMSFields(FieldList $fields)
     {
         $menus = $this->owner->config()->get('menus');
