@@ -120,7 +120,6 @@ class ElementalPageExtension extends BaseExtension {
         $searchText = $this->getElementsForSearch();
         $searchText = preg_replace('/\s+/', ' ', $searchText);
         $this->owner->SearchText = $searchText;
-
     }
 
 }
