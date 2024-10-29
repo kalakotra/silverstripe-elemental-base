@@ -11,6 +11,6 @@
     }
   ],
   "require": {
-    "dnadesign/silverstripe-elemental": "^4.0"
+    "dnadesign/silverstripe-elemental": "^5.*"
   }
 }
