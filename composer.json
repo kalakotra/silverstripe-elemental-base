@@ -2,6 +2,7 @@
   "name": "adiwidjaja/silverstripe-elemental-base",
   "description": "Alternate elemental base",
   "type": "silverstripe-vendormodule",
+  "minimum-stability": "dev",
   "license": "BSD-3-Clause",
   "authors": [
     {
